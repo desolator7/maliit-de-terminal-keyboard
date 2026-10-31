@@ -1,0 +1,3 @@
+pragma Singleton
+import QtQuick 2.4
+QtObject { function keyPressed() {} function startPressEffect() {} }

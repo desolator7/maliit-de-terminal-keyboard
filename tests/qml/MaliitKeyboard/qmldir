@@ -1,0 +1,4 @@
+module MaliitKeyboard
+singleton Keyboard 2.0 Keyboard.qml
+singleton Device 2.0 Device.qml
+singleton Feedback 2.0 Feedback.qml

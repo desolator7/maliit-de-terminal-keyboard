@@ -1,0 +1,19 @@
+# GSettings-Stand, Schema org.maliit.keyboard.maliit
+/active-language 'de'
+/auto-capitalization false
+/auto-completion true
+/device 'default'
+/disable-height false
+/double-space-full-stop true
+/enable-magnifier true
+/enabled-languages ['de']
+/key-press-feedback false
+/key-press-feedback-sound '/usr/share/maliit/keyboard2/sounds/key_tick2_quiet.wav'
+/key-press-haptic-feedback true
+/opacity 1.0
+/plugin-paths ['/custom/share/maliit/plugins/org/maliit/lib/']
+/predictive-text true
+/spell-checking true
+/spell-checking-languages @as []
+/stay-hidden false
+/theme 'breeze'
