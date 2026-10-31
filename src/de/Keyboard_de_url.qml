@@ -23,18 +23,18 @@ KeyPad {
             anchors.left: parent.left
             spacing: 0
             TerminalActionKey { terminal: terminalState; label: "Esc"; keyName: "Esc"; width: panel.keyWidth * 1; padding: 0 }
-            TerminalCharKey { terminal: terminalState; label: "1"; shifted: "!"; }
-            TerminalCharKey { terminal: terminalState; label: "2"; shifted: "\""; }
-            TerminalCharKey { terminal: terminalState; label: "3"; shifted: "§"; }
-            TerminalCharKey { terminal: terminalState; label: "4"; shifted: "$"; }
-            TerminalCharKey { terminal: terminalState; label: "5"; shifted: "%"; }
-            TerminalCharKey { terminal: terminalState; label: "6"; shifted: "&"; }
-            TerminalCharKey { terminal: terminalState; label: "7"; shifted: "/"; }
-            TerminalCharKey { terminal: terminalState; label: "8"; shifted: "("; }
-            TerminalCharKey { terminal: terminalState; label: "9"; shifted: ")"; }
-            TerminalCharKey { terminal: terminalState; label: "0"; shifted: "="; }
-            TerminalCharKey { terminal: terminalState; label: "ß"; shifted: "?"; }
-            TerminalCharKey { terminal: terminalState; label: "´"; shifted: "`"; }
+            TerminalCharKey { terminal: terminalState; label: "1"; shifted: "!"; extended: ["!", "¹"]; extendedShifted: ["!", "¹"]; }
+            TerminalCharKey { terminal: terminalState; label: "2"; shifted: "\""; extended: ["\"", "²"]; extendedShifted: ["\"", "²"]; }
+            TerminalCharKey { terminal: terminalState; label: "3"; shifted: "§"; extended: ["§", "³"]; extendedShifted: ["§", "³"]; }
+            TerminalCharKey { terminal: terminalState; label: "4"; shifted: "$"; extended: ["$", "¼"]; extendedShifted: ["$", "¼"]; }
+            TerminalCharKey { terminal: terminalState; label: "5"; shifted: "%"; extended: ["%", "½"]; extendedShifted: ["%", "½"]; }
+            TerminalCharKey { terminal: terminalState; label: "6"; shifted: "&"; extended: ["&", "¬"]; extendedShifted: ["&", "¬"]; }
+            TerminalCharKey { terminal: terminalState; label: "7"; shifted: "/"; extended: ["/", "{"]; extendedShifted: ["/", "{"]; }
+            TerminalCharKey { terminal: terminalState; label: "8"; shifted: "("; extended: ["(", "["]; extendedShifted: ["(", "["]; }
+            TerminalCharKey { terminal: terminalState; label: "9"; shifted: ")"; extended: [")", "]"]; extendedShifted: [")", "]"]; }
+            TerminalCharKey { terminal: terminalState; label: "0"; shifted: "="; extended: ["=", "}"]; extendedShifted: ["=", "}"]; }
+            TerminalCharKey { terminal: terminalState; label: "ß"; shifted: "?"; extended: ["?", "\\"]; extendedShifted: ["?", "\\"]; }
+            TerminalCharKey { terminal: terminalState; label: "´"; shifted: "`"; extended: ["`", "¸"]; extendedShifted: ["`", "¸"]; }
             TerminalBackspaceKey { terminal: terminalState; objectName: "terminal-backspace"; padding: 0; width: panel.keyWidth * 2 }
             TerminalDeleteKey { terminal: terminalState; nativeInput: nativeInput; width: panel.keyWidth; padding: 0 }
         }
@@ -54,7 +54,7 @@ KeyPad {
             TerminalCharKey { terminal: terminalState; label: "o"; shifted: "O"; extended: ["ö","ò","ó","ô","õ","ø"]; extendedShifted: ["Ö","Ò","Ó","Ô","Õ","Ø"] }
             TerminalCharKey { terminal: terminalState; label: "p"; shifted: "P";   }
             TerminalCharKey { terminal: terminalState; label: "ü"; shifted: "Ü"; }
-            TerminalCharKey { terminal: terminalState; label: "+"; shifted: "*"; }
+            TerminalCharKey { terminal: terminalState; label: "+"; shifted: "*"; extended: ["*", "~"]; extendedShifted: ["*", "~"]; }
             Item { width: panel.keyWidth * 0.25; height: panel.keyHeight }
             TerminalReturnKey { objectName: "terminal-return-upper"; terminal: terminalState; width: panel.keyWidth * 1.25; padding: 0 }
             TerminalActionKey { terminal: terminalState; label: "Ende"; keyName: "End"; width: panel.keyWidth * 1; padding: 0 }
@@ -75,7 +75,7 @@ KeyPad {
             TerminalCharKey { terminal: terminalState; label: "l"; shifted: "L"; extended: ["ł","£"]; extendedShifted: ["Ł","£"] }
             TerminalCharKey { terminal: terminalState; label: "ö"; shifted: "Ö"; }
             TerminalCharKey { terminal: terminalState; label: "ä"; shifted: "Ä"; }
-            TerminalCharKey { terminal: terminalState; label: "#"; shifted: "'"; }
+            TerminalCharKey { terminal: terminalState; label: "#"; shifted: "'"; extended: ["'", "’"]; extendedShifted: ["'", "’"]; }
             TerminalReturnKey { objectName: "terminal-return-lower"; terminal: terminalState; width: panel.keyWidth * 1.25; padding: 0 }
             TerminalActionKey { terminal: terminalState; label: "Bild ↑"; keyName: "PgUp"; width: panel.keyWidth * 1; padding: 0 }
         }
@@ -84,7 +84,7 @@ KeyPad {
             anchors.left: parent.left
             spacing: 0
             TerminalShiftKey { objectName: "terminal-shift"; width: panel.keyWidth * 1.25; padding: 0 }
-            TerminalCharKey { terminal: terminalState; label: "<"; shifted: ">"; }
+            TerminalCharKey { terminal: terminalState; label: "<"; shifted: ">"; extended: [">", "|"]; extendedShifted: [">", "|"]; }
             TerminalCharKey { terminal: terminalState; label: "y"; shifted: "Y"; extended: ["ÿ","¥"]; extendedShifted: ["Ÿ","¥"] }
             TerminalCharKey { terminal: terminalState; label: "x"; shifted: "X"; }
             TerminalCharKey { terminal: terminalState; label: "c"; shifted: "C"; extended: ["ç","¢"]; extendedShifted: ["Ç","¢"] }
@@ -92,9 +92,9 @@ KeyPad {
             TerminalCharKey { terminal: terminalState; label: "b"; shifted: "B"; }
             TerminalCharKey { terminal: terminalState; label: "n"; shifted: "N"; extended: ["ñ"]; extendedShifted: ["Ñ"] }
             TerminalCharKey { terminal: terminalState; label: "m"; shifted: "M"; }
-            TerminalCharKey { terminal: terminalState; label: ","; shifted: ";"; }
-            TerminalCharKey { terminal: terminalState; label: "."; shifted: ":"; }
-            TerminalCharKey { terminal: terminalState; label: "-"; shifted: "_"; }
+            TerminalCharKey { terminal: terminalState; label: ","; shifted: ";"; extended: [";", "·"]; extendedShifted: [";", "·"]; }
+            TerminalCharKey { terminal: terminalState; label: "."; shifted: ":"; extended: [":", "…"]; extendedShifted: [":", "…"]; }
+            TerminalCharKey { terminal: terminalState; label: "-"; shifted: "_"; extended: ["_", "–"]; extendedShifted: ["_", "–"]; }
             TerminalShiftKey { objectName: "terminal-shift-right"; width: panel.keyWidth * 1.75; padding: 0 }
             TerminalActionKey { terminal: terminalState; label: "↑"; keyName: "Up"; width: panel.keyWidth * 1; padding: 0 }
             TerminalActionKey { terminal: terminalState; label: "Bild ↓"; keyName: "PgDown"; width: panel.keyWidth * 1; padding: 0 }

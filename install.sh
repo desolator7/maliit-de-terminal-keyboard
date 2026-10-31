@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 project_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+install_svg=false
+case "${1:-}" in
+    '') ;;
+    --with-svg) install_svg=true ;;
+    --help) echo 'Verwendung: ./install.sh [--with-svg]'; exit 0 ;;
+    *) echo 'Verwendung: ./install.sh [--with-svg]' >&2; exit 2 ;;
+esac
+[[ $# -le 1 ]] || { echo 'Zu viele Argumente.' >&2; exit 2; }
 data_dir=${XDG_DATA_HOME:-"$HOME/.local/share"}
 languages_dir="$data_dir/maliit-keyboard/languages"
 target="$languages_dir/de"
@@ -11,6 +19,21 @@ command -v kwriteconfig6 >/dev/null || { echo 'kwriteconfig6 fehlt.' >&2; exit 1
 command -v gsettings >/dev/null || { echo 'gsettings fehlt.' >&2; exit 1; }
 command -v python3 >/dev/null || { echo 'python3 fehlt.' >&2; exit 1; }
 command -v maliit-keyboard >/dev/null || { echo 'maliit-keyboard fehlt.' >&2; exit 1; }
+svg_status=0
+"$project_dir/scripts/check-qt5-svg.sh" || svg_status=$?
+case "$svg_status" in
+    0) ;;
+    1)
+        if $install_svg; then
+            "$project_dir/scripts/install-qt5-svg.sh"
+            "$project_dir/scripts/check-qt5-svg.sh" || { echo 'Qt-5-SVG ist nach der Installation nicht verfügbar.' >&2; exit 1; }
+        else
+            echo 'Hinweis: Qt-5-SVG fehlt. Siehe README (SVG-Unterstützung).' >&2
+        fi ;;
+    *)
+        echo 'Hinweis: Qt-5-SVG konnte nicht geprüft werden.' >&2
+        if $install_svg; then exit "$svg_status"; fi ;;
+esac
 mkdir -p "$languages_dir" "$data_dir/applications"
 staging=$(mktemp -d "$languages_dir/.de-install.XXXXXX")
 trap '[[ -z ${staging:-} ]] || rm -rf -- "$staging"' EXIT

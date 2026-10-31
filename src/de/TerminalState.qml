@@ -251,7 +251,7 @@ QtObject {
         if (altgr) {
             var entry = levels[baseKey.toLowerCase()]
             value = entry ? entry[upper ? 1 : 0] : ""
-        } else if (baseKey === "´") value = upper ? "dead:grave" : "dead:acute"
+        } else if (baseKey === "´") value = text === "`" ? "dead:grave" : "dead:acute"
         if (value.indexOf("dead:") === 0) selectDead(value.substring(5))
         else if (value) commitCharacter(value)
         clearLater()

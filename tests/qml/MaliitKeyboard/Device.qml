@@ -8,5 +8,7 @@ QtObject {
  property real annotationTopMargin: 2
  property real annotationRightMargin: 2
  property real row_margin: 0
+ property real popoverTopMargin: 10
+ property real popoverEdgeMargin: 4
  function gu(n) { return 8*n }
 }

@@ -1,10 +1,13 @@
 import QtQuick 2.4
 import QtQuick.Window 2.4
+import MaliitKeyboard 2.0
 Window {
  id: window
  visible: true
  width: 1300; height: 500
  property var events: []
+ function setActionOverride(label, icon) { Keyboard.actionKeyOverride = { label: label, icon: icon, enabled: true } }
+ function clearActionOverride() { Keyboard.actionKeyOverride = null }
  Item {
   id: panel
   objectName: "test-panel"

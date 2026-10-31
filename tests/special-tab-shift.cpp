@@ -14,6 +14,21 @@ QTimer::singleShot(500,[&]{bool ok=true;int checks=0;
   if (!icon || icon->width() < 60 || icon->property("status").toInt() != 1) { fprintf(stderr, "%s has missing or small icon\n",name); ok=false; }
   checks++;
  }
+ struct IconPair { const char *first; const char *second; };
+ for (const IconPair &pair : {IconPair{"terminal-backspace", "terminal-backspace-icon"}, {"terminal-return-upper", "terminal-return-icon"}, {"terminal-return-lower", "terminal-return-icon"}, {"terminal-caps", "terminal-caps-icon"}}) {
+  auto *key=w->findChild<QObject*>(pair.first); auto *icon=key ? key->findChild<QQuickItem*>(pair.second) : nullptr;
+  if (!icon || icon->width() < 60 || icon->property("status").toInt() != 1) { fprintf(stderr, "%s: icon missing or too small\n",pair.first); ok=false; }
+  if (icon && QString::fromUtf8(pair.first)=="terminal-caps" && icon->rotation()!=180) { fprintf(stderr,"Caps icon is not rotated\n"); ok=false; }
+  checks++;
+ }
+ auto *returnKey=w->findChild<QObject*>("terminal-return-upper");
+ auto *returnIcon=returnKey ? returnKey->findChild<QQuickItem*>("terminal-return-icon") : nullptr;
+ QMetaObject::invokeMethod(w,"setActionOverride",Q_ARG(QVariant,QVariant("Senden")),Q_ARG(QVariant,QVariant(""))); QTest::qWait(10);
+ if (!returnKey || !returnIcon || returnIcon->isVisible() || returnKey->property("label").toString() != "Senden") { fprintf(stderr,"Return label override failed\n"); ok=false; } checks++;
+ QMetaObject::invokeMethod(w,"setActionOverride",Q_ARG(QVariant,QVariant("")),Q_ARG(QVariant,QVariant("go-next-symbolic"))); QTest::qWait(10);
+ if (!returnKey || !returnIcon || returnIcon->isVisible() || returnKey->property("iconNormal").toString() != "go-next-symbolic") { fprintf(stderr,"Return icon override failed\n"); ok=false; } checks++;
+ QMetaObject::invokeMethod(w,"clearActionOverride"); QTest::qWait(10);
+ if (!returnIcon || !returnIcon->isVisible()) { fprintf(stderr,"Default return icon failed to reappear\n"); ok=false; } checks++;
  auto click=[&](QString name){auto *item=w->findChild<QQuickItem*>(name);if(!item){fprintf(stderr,"Missing %s\n",name.toUtf8().constData());ok=false;return;}auto pt=item->mapToScene(QPointF(item->width()/2,item->height()/2)).toPoint();QTest::mouseClick(w,Qt::LeftButton,Qt::NoModifier,pt,1);QTest::qWait(5);};
  auto expect=[&](QString name,QStringList values){auto got=w->property("events").toStringList();if(got!=values){fprintf(stderr,"%s expected [%s] got [%s]\n",name.toUtf8().constData(),values.join(",").toUtf8().constData(),got.join(",").toUtf8().constData());ok=false;}checks++;w->setProperty("events",QStringList{});};
  struct Nav{const char *label,*value;}; Nav nav[]={{"Esc","Esc"},{"⇥","Tab"},{"Ende","End"},{"Bild ↑","PgUp"},{"Bild ↓","PgDown"},{"↑","Up"},{"←","Left"},{"↓","Down"},{"→","Right"}};

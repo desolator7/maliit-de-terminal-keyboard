@@ -21,9 +21,16 @@ CharKey {
     state: panel.activeKeypadState === "CAPSLOCK" &&
            !(label.length === 1 && label.toLowerCase() !== label.toUpperCase() && shifted === label.toUpperCase())
            ? "NORMAL" : panel.activeKeypadState
-    overridePressArea: terminal.active || label === "´"
+    // The dead accent key must still use Maliit's standard long-press popup.
+    overridePressArea: terminal.active
+    allowPreeditHandler: label === "´"
+    preeditHandler: accentHandler
+    QtObject {
+        id: accentHandler
+        function onKeyReleased(text, action) { terminalKey.terminal.sendCharacter(text, terminalKey.label) }
+    }
     onReleased: {
-        if (terminal.active || label === "´")
+        if (terminal.active)
             terminal.sendCharacter(valueToSubmit, label)
     }
     Label {
